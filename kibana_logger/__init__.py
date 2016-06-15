@@ -67,7 +67,7 @@ class KibanaLogger(object):
         '''log data + preset as debug message
         '''
         text = self._create_syslog_string(data)
-        syslog.syslog(syslog.LOG_ERR, text)
+        syslog.syslog(syslog.LOG_DEBUG, text)
 
     def critical(self, data):
         '''log data + preset as critical message

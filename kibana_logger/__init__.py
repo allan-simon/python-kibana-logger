@@ -5,7 +5,7 @@ Module to easily get application logs into kibana
 import syslog
 import json
 
-__version__ = (0, 1, 0)
+__version__ = (0, 1, 1)
 
 class KibanaLogger(object):
     '''Object to ease json-logging with syslog-compatible system

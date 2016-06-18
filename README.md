@@ -1,6 +1,10 @@
 # python-kibana-logger
 
+[![PyPI version](https://badge.fury.io/py/kibana-logger.svg)](https://badge.fury.io/py/kibana-logger)
+
 Module to ease logging in json format that can be later displayed in Kibana.
+
+
 
 ## Installation
 

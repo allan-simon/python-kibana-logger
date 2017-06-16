@@ -28,6 +28,14 @@ You can use the new_with() function to create a first set of parameters to log.
 logger = logger.new_with({"action": "get_logs"})
 ```
 
+## Add a new set of parameters
+
+You can use the update_in_place() function add a new set of parameters to the current logger instance.
+
+```
+logger.update_in_place({"resource_id": "0"})
+```
+
 ## Log information
 
 There are different kind of logs that will be written into syslog
@@ -79,6 +87,27 @@ def bar(logger):
     # log app / stack / request_id / action
     x_logger.info({"action": "do_something"})
 
+def update_logger_default_set(logger):
+    """
+    Update the logger instance by adding a new parameter set
+    """
+    logger.update_in_place({"resource_id": "0"}
+
+
+def baz(logger):
+    """
+    Third method
+    """
+    # log app / stack / step
+    x_logger.info({"step": "start"})
+    
+    # Call the function that add "resource_id" to the logger parameter set
+    update_logger_default_set(logger)
+    
+    # log app / stack / resource_id / step
+    x_logger.info({"step": "end"})
+
 foo(logger)
 bar(logger)
+baz(logger)
 ```

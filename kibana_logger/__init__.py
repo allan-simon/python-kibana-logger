@@ -29,6 +29,12 @@ class KibanaLogger(object):
         new_preset = self._merge_with_preset(more_preset)
         return self.__class__(new_preset)
 
+    def update_in_place(self, more_preset):
+        '''Add some presets to the current instance ones.
+        Use this method wisely as it alters the current instance
+        '''
+        self.preset.update(more_preset)
+
     def _merge_with_preset(self, data):
         '''merge preset with given data
         '''
@@ -74,4 +80,3 @@ class KibanaLogger(object):
         '''
         text = self._create_syslog_string(data)
         syslog.syslog(syslog.LOG_CRIT, text)
-

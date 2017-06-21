@@ -7,7 +7,7 @@ setup tools
 from setuptools import setup, find_packages
 
 setup(
-    name='kibana_logger',
+    name='kibana-logger',
     version=":versiontools:kibana_logger:",
     description="module to simply log in syslog with CEE/json format for analysing by kibana",
     long_description="",
@@ -25,5 +25,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
+    ],
+    setup_requires=[
+        'versiontools >= 1.8',
     ],
 )

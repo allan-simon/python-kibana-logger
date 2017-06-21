@@ -20,17 +20,21 @@ Create the main logger instance :
 logger = KibanaLogger({"app": "your_app_name"})
 ```
 
-## Usage
+## Create a new instance
 
-You can use the new_with() function to create a first set of parameters to log.
+You can use the `clone_with()` function to create a first set of parameters to log.
 
 ```
-logger = logger.new_with({"action": "get_logs"})
+logger = logger.clone_with({"action": "get_logs"})
 ```
+
+Note: there's a `new_with` function that does exactly the same thing but
+it is deprecatd as it was not obvious to people that it was returning
+a new instance and NOT updating the current version
 
 ## Add a new set of parameters
 
-You can use the update_in_place() function add a new set of parameters to the current logger instance.
+You can use the `update_in_place()` function add a new set of parameters to the current logger instance.
 
 ```
 logger.update_in_place({"resource_id": "0"})
@@ -67,11 +71,18 @@ def foo(logger):
     """
     First method
     """
-    x_logger = logger.new_with({"api_endpoint": "get_logs"})
+    x_logger = logger.clone_with({"api_endpoint": "get_logs"})
 
-    # log app / stack / api_endpoint / user_id
+    # it will log the tags:
+    # app / stack / api_endpoint / user_id
     x_logger.info({"user_id": "a_user_id"})
+    
+    # it will log the tags:
+    # app / stack / user_id
+    # NOTE logger. was not updated !
+    logger.info({"user_id": "a_user_id"})
 
+    # it will log the tags:
     # log app / stack / api_endpoint / amount
     x_logger.info({"amount": "42"})
 
@@ -79,7 +90,7 @@ def bar(logger):
     """
     Second method
     """
-    x_logger = logger.new_with({"request_id": uuid4()})
+    x_logger = logger.clone_with({"request_id": uuid4()})
 
     # log app / stack / request_id / request_time
     x_logger.info({"request_time": "35"})

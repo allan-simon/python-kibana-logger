@@ -5,7 +5,7 @@ Module to easily get application logs into kibana
 import syslog
 import json
 
-__version__ = (0, 1, 1)
+__version__ = (0, 2, 0)
 
 class KibanaLogger(object):
     '''Object to ease json-logging with syslog-compatible system
@@ -23,8 +23,15 @@ class KibanaLogger(object):
             preset = {}
         self.preset = preset
 
+    def clone_with(self, more_preset):
+        '''create new instance with more presets
+        '''
+        new_preset = self._merge_with_preset(more_preset)
+        return self.__class__(new_preset)
+
     def new_with(self, more_preset):
         '''create new instance with more presets
+        WARNING: deprecated, please use clone_with
         '''
         new_preset = self._merge_with_preset(more_preset)
         return self.__class__(new_preset)

@@ -4,8 +4,11 @@ Module to easily get application logs into kibana
 
 import syslog
 import json
+import os
+from Log_level import LogLevel
 
 __version__ = (0, 2, 0)
+
 
 class KibanaLogger(object):
     '''Object to ease json-logging with syslog-compatible system
@@ -18,6 +21,7 @@ class KibanaLogger(object):
     CEE = "@cee: "
 
     def __init__(self, preset=None):
+        self.log_level = LogLevel[os.getenv('KIBANA_LOGGER_LOG_LEVEL', default='INFO')]
         syslog.openlog(facility=syslog.LOG_LOCAL7)
         if preset is None:
             preset = {}
@@ -61,26 +65,30 @@ class KibanaLogger(object):
     def info(self, data):
         '''log data + preset as info message
         '''
-        text = self._create_syslog_string(data)
-        syslog.syslog(syslog.LOG_INFO, text)
+        if self.log_level >= LogLevel.INFO:
+            text = self._create_syslog_string(data)
+            syslog.syslog(syslog.LOG_INFO, text)
 
     def warning(self, data):
         '''log data + preset as warning message
         '''
-        text = self._create_syslog_string(data)
-        syslog.syslog(syslog.LOG_WARNING, text)
+        if self.log_level >= LogLevel.WARNING:
+            text = self._create_syslog_string(data)
+            syslog.syslog(syslog.LOG_WARNING, text)
 
     def error(self, data):
         '''log data + preset as error message
         '''
-        text = self._create_syslog_string(data)
-        syslog.syslog(syslog.LOG_ERR, text)
+        if self.log_level >= LogLevel.ERROR:
+            text = self._create_syslog_string(data)
+            syslog.syslog(syslog.LOG_ERR, text)
 
     def debug(self, data):
         '''log data + preset as debug message
         '''
-        text = self._create_syslog_string(data)
-        syslog.syslog(syslog.LOG_DEBUG, text)
+        if self.log_level >= LogLevel.DEBUG:
+            text = self._create_syslog_string(data)
+            syslog.syslog(syslog.LOG_DEBUG, text)
 
     def critical(self, data):
         '''log data + preset as critical message

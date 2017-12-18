@@ -65,28 +65,28 @@ class KibanaLogger(object):
     def info(self, data):
         '''log data + preset as info message
         '''
-        if self.log_level.value >= LogLevel.INFO.value:
+        if self.log_level >= LogLevel.INFO:
             text = self._create_syslog_string(data)
             syslog.syslog(syslog.LOG_INFO, text)
 
     def warning(self, data):
         '''log data + preset as warning message
         '''
-        if self.log_level.value >= LogLevel.WARNING.value:
+        if self.log_level >= LogLevel.WARNING:
             text = self._create_syslog_string(data)
             syslog.syslog(syslog.LOG_WARNING, text)
 
     def error(self, data):
         '''log data + preset as error message
         '''
-        if self.log_level.value >= LogLevel.ERROR.value:
+        if self.log_level >= LogLevel.ERROR:
             text = self._create_syslog_string(data)
             syslog.syslog(syslog.LOG_ERR, text)
 
     def debug(self, data):
         '''log data + preset as debug message
         '''
-        if self.log_level.value >= LogLevel.DEBUG.value:
+        if self.log_level >= LogLevel.DEBUG:
             text = self._create_syslog_string(data)
             syslog.syslog(syslog.LOG_DEBUG, text)
 

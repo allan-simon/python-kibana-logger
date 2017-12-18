@@ -7,3 +7,6 @@ class LogLevel(Enum):
     WARNING = 2
     INFO = 3
     DEBUG = 4
+
+    def __ge__(self, level):
+        return self.value >= level.value

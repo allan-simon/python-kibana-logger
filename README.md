@@ -20,6 +20,15 @@ Create the main logger instance :
 logger = KibanaLogger({"app": "your_app_name"})
 ```
 
+
+## Configuratiopn
+
+You can configure the log level using the ENV variable `KIBANA_LOGGER_LOG_LEVEL`:
+* DEBUG
+* INFO (default)
+* WARNING
+* ERROR
+
 ## Create a new instance
 
 You can use the `clone_with()` function to create a first set of parameters to log.

@@ -7,6 +7,7 @@ import json
 
 __version__ = (0, 2, 0)
 
+
 class KibanaLogger(object):
     '''Object to ease json-logging with syslog-compatible system
     It uses the CEE token format, so that it can be used by rsyslog
@@ -37,10 +38,12 @@ class KibanaLogger(object):
         return self.__class__(new_preset)
 
     def update_in_place(self, more_preset):
-        '''Add some presets to the current instance ones.
+        '''Add some presets to the current instance's ones
+        and return the instance.
         Use this method wisely as it alters the current instance
         '''
         self.preset.update(more_preset)
+        return self
 
     def _merge_with_preset(self, data):
         '''merge preset with given data
